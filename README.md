@@ -8,3 +8,10 @@
 - [ ] Zaimplementuj algorytm znajdowania cyklu Eulera w grafie
 - [ ] Zaimplementuj algorytm z powracaniem znajdowania cyklu Hamiltona w grafie
 - [ ] Po utworzeniu grafu (losowo lub z klawiatury) użytkownik może dla tego grafu wykonać dowolne procedury wyświetlania grafu lub znajdowania cykli E i H
+
+# TEST
+
+- [ ] Wygeneruj grafy hamiltonowskie nieskierowane dla 10 różnych wartości n oraz dla nasycenia grafu 30% oraz 70%,
+- [ ] Dokonaj pomiaru czasu działania algorytmów znajdowania cyklu Eulera i Hamiltona dla wygenerowanych grafów wyniki przedstaw na dwóch wykresach t=f(n)
+- [ ] Wygeneruj grafy nie-hamiltonowskie nieskierowane dla kilku różnych wartości n (n jest małe, ok 20-30) oraz dla nasycenia grafu 50%,
+- [ ] Dokonaj pomiaru czasu działania algorytmów znajdowania cyklu Hamiltona dla wygenerowanych grafów wyniki przedstaw na wykresie t=f(n)
