@@ -2,8 +2,12 @@ from sys import argv
 from random import randint
 
 
-def _min_rich(size):
-    return size * (size - 1) // 4
+def _random_pair(size):
+    return randint(0, size - 1), randint(0, size - 1)
+
+
+def _min_rich(size, constr):
+    return constr * (size * (size - 1) // 2)
 
 
 def _randomize_matrix(arr):
@@ -16,44 +20,70 @@ def _randomize_matrix(arr):
     return arr
 
 
+class FriendList:
+    def __init__(self, list):
+        self.list = list
+
+    def friends_of(self, vertex):
+        pos = self.list.index(vertex)
+        return [
+            vertex,
+            self.list[pos - 1],
+            self.list[pos + 1]
+        ]
+
+
+def _rich(graph):
+    tab = []
+    for i in range(len(graph)):
+        tab += graph[i]
+    print(tab)
+    return len(tab)
+
+
+def gen_list(size, constr):
+    list = [i + 1 for i in range(size - 1)]
+    for i in range(size):
+        a, b = _random_pair(size - 1)
+        list[a], list[b] = list[b], list[a]
+    list = [*list, 0]
+    way = {}
+    way[0] = [list[0]]
+    print(list)
+
+    for i in range(size - 1):
+        way[list[i]] = [list[i + 1]]
+
+    #
+    list = FriendList(list)
+
+    while _rich(way) < _min_rich(size, constr):
+        i = randint(1, size - 2)
+        a, b = i, i
+        forbiden = list.friends_of(i)
+        while a in forbiden or b in forbiden:
+            a, b = _random_pair(size)
+            print(a, b)
+        way[i].append(a)
+        way[i].append(b)
+
+    for i in range(size):
+        a, b = _random_pair(len(way[i]))
+        way[i][a], way[i][b] = way[i][b], way[i][a]
+
+    return(way)
+
+
 class Generator:
-    def __init__(self, size: int, density: int, hamiltonian: bool):
-        """
-        Generator's init reads collects configuration
-        to run the generator with.
-        """
+    def __init__(self, size, density, hamilton):
+        self.size
 
-        self.matrix = [[
-            *[-1 for z in range(i)],
-            0,
-            *[1 for z in range(size - i - 1)]
-        ] for i in range(size)]
-
-        self.matrix = _randomize_matrix(self.matrix)
-
-    def get(self):
+    def matrix(self):
         pass
 
 
-def _cli():
-    try:
-        times = int(argv[1])
-    except:
-        times = int(input("matrix size -: "))
-
-    try:
-        do_test = (argv[2] == '-test')
-    except:
-        do_test = False
-
-    if do_test:
-        print('2')
-        print(times)
-    [print("".join([f'{el: 3}' for el in row]))
-     for row in Generator(times).matrix]
-    if do_test:
-        print('1\n2\n3\n4\n0\n0')
-
-
 if __name__ == '__main__':
-    _cli()
+    # _cli()
+    print(
+        gen_list(20, 0.5)
+    )

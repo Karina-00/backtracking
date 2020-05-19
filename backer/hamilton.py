@@ -1,4 +1,6 @@
-from click import secho
+from click import style
+
+from .ggen import gen_list
 
 
 def hamilton(graph):
@@ -6,26 +8,27 @@ def hamilton(graph):
     counter = 0
     path = [start]
     visited = [False for i in range(len(graph))]
-    print(visited)
+    # print(visited)
     visited[start] = True
     cycle(graph, start, start, visited, path, counter)
 
 
 def cycle(graph, current, start, visited, path, counter):
-    secho(f"at {current}", fg="blue")
+    print(style(f" → {current}", fg="blue"), end="")
     visited[current] = True
     counter += 1
-    secho(f"visited: {visited}", fg="blue")
+    # secho(f"visited: {visited}", fg="blue")
     for next in graph[current]:
         if next == start and counter == len(graph):
             return True
         if not visited[next]:
             if cycle(graph, next, start, visited, path, counter):
                 path.append(current)
-                print(path)
+                print(path[::-1])
                 return True
     visited[current] = False
     counter -= 1
+    print(style(" ←", fg="red"), end="")
     return False
 
 
@@ -38,4 +41,4 @@ if __name__ == '__main__':
         4: [2, 3],
         5: [0],
     }
-    hamilton(graph)
+    hamilton(gen_list(15, 0.3))
