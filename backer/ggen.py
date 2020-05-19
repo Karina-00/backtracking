@@ -21,15 +21,15 @@ def _randomize_matrix(arr):
 
 
 class FriendList:
-    def __init__(self, list):
-        self.list = list
+    def __init__(self, lista):
+        self.lista = lista
 
     def friends_of(self, vertex):
-        pos = self.list.index(vertex)
+        pos = self.lista.index(vertex)
         return [
             vertex,
-            self.list[pos - 1],
-            self.list[pos + 1]
+            self.lista[pos - 1],
+            self.lista[pos + 1]
         ]
 
 
@@ -37,49 +37,64 @@ def _rich(graph):
     tab = []
     for i in range(len(graph)):
         tab += graph[i]
-    print(tab)
+    # print(tab)
     return len(tab)
 
 
 def gen_list(size, constr):
-    list = [i + 1 for i in range(size - 1)]
+    lista = [i + 1 for i in range(size - 1)]
     for i in range(size):
         a, b = _random_pair(size - 1)
-        list[a], list[b] = list[b], list[a]
-    list = [*list, 0]
+        lista[a], lista[b] = lista[b], lista[a]
+    lista = [*lista, 0]
     way = {}
-    way[0] = [list[0]]
-    print(list)
+    way[0] = [lista[0]]
+    # print(lista)
 
     for i in range(size - 1):
-        way[list[i]] = [list[i + 1]]
+        way[lista[i]] = [lista[i + 1]]
 
     #
-    list = FriendList(list)
+    lista = FriendList(lista)
 
     while _rich(way) < _min_rich(size, constr):
         i = randint(1, size - 2)
         a, b = i, i
-        forbiden = list.friends_of(i)
-        while a in forbiden or b in forbiden:
+        forbiden = lista.friends_of(i)
+        while a in forbiden or a in way[i] or b in way[i] or b in forbiden:
             a, b = _random_pair(size)
-            print(a, b)
         way[i].append(a)
         way[i].append(b)
 
     for i in range(size):
-        a, b = _random_pair(len(way[i]))
-        way[i][a], way[i][b] = way[i][b], way[i][a]
+        way[i] = sorted(list(set(way[i])))
+        # a, b = _random_pair(len(way[i]))
+        # way[i][a], way[i][b] = way[i][b], way[i][a]
 
     return(way)
 
 
 class Generator:
-    def __init__(self, size, density, hamilton):
-        self.size
+    def __init__(self, size, density, hamiltonian=True):
+        self.size = size
+        self.list = gen_list(size, density)
+        if not hamiltonian:
+            self.list[size - 1] = []
+        used = _rich(self.list)
+        poss = _min_rich(size, 1)
+        print(
+            f"used {used} edges of {poss} edges possible ({(used/poss) *10000 // 10 / 10}%)"
+        )
 
     def matrix(self):
         pass
+
+    def print_list(self):
+        for i in range(self.size):
+            print(f"{i:3} :", " ".join(
+                [f"→ {v}" for v in self.list[i]]))
+
+        return self
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 from click import style
 
-from .ggen import gen_list
+from .ggen import Generator
 
 
 def hamilton(graph):
@@ -14,7 +14,7 @@ def hamilton(graph):
 
 
 def cycle(graph, current, start, visited, path, counter):
-    print(style(f" → {current}", fg="blue"), end="")
+    # print(style(f" → {current}", fg="blue"), end="")
     visited[current] = True
     counter += 1
     # secho(f"visited: {visited}", fg="blue")
@@ -28,17 +28,10 @@ def cycle(graph, current, start, visited, path, counter):
                 return True
     visited[current] = False
     counter -= 1
-    print(style(" ←", fg="red"), end="")
+    # print(style(" ←", fg="red"), end="")
     return False
 
 
 if __name__ == '__main__':
-    graph = {
-        0: [1],
-        1: [2, 4],
-        2: [0, 3],
-        3: [5],
-        4: [2, 3],
-        5: [0],
-    }
-    hamilton(gen_list(15, 0.3))
+    graph = Generator(20, 0.3).print_list().list
+    hamilton(graph)

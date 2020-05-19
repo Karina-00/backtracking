@@ -90,7 +90,7 @@ def main(argv):
                 continue
 
             hamiltonian = False if density == 3 else True
-            # matrix = Generator(_gen_size, density, hamiltonian).matrix
+            matrix = Generator(_gen_size, density, hamiltonian).matrix
 
         elif x == 2:
             matrix = read_graph()
