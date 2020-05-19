@@ -20,6 +20,15 @@ def _randomize_matrix(arr):
     return arr
 
 
+def list_to_matrix(s_list):
+    n = len(s_list)
+    matrix = [[0 for _ in range(n)] for _ in range(n)]
+    for i in range(n):
+        for el in s_list[i]:
+            matrix[i][el] = matrix[el][i] = 1
+    return matrix
+
+
 class FriendList:
     def __init__(self, lista):
         self.lista = lista
