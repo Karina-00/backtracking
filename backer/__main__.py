@@ -13,9 +13,8 @@ from .hamilton import hamilton
 
 
 def read_graph():
-    """Tworzy graf"""
-    v = int(input("Podaj ilosc wierzcholkow grafu:"))
-    print("Podaj kolejne wiersze macierzy sasiedztwa:")
+    v = int(input("Podaj ilosc wierzcholkow grafu: "))
+    print("Podaj kolejne wiersze macierzy sasiedztwa: ")
     matrix = []
     for i in range(v):
         line = list(map(int, input(f"{i + 1} linia:").split()))
@@ -35,18 +34,20 @@ def macierz_sasiedztwa(matrix: list):
 
 def lista_nastepnikow(matrix: list):
     print(style("\nLista nastepnikow", fg='blue'))
-    result = []
-    result2 = []
+    _result = []
+    result = {}
     n = len(matrix)
+
     for i in range(n):
         nastepniki = []
         for j in range(n):
             if matrix[i][j] == 1:
                 nastepniki.append(j)
-        result.append([i, " -> ".join(list(map(str, nastepniki)))])
-        result2.append([i, nastepniki])
-    print(tabulate(result, headers=['V', 'lista'], tablefmt='orgtbl'))
-    return result2
+        _result.append([i, " -> ".join(list(map(str, nastepniki)))])
+        result[i] = nastepniki
+
+    print(tabulate(_result, headers=['V', 'lista'], tablefmt='orgtbl'))
+    return result
 
 
 def tabela_krawedzi(matrix):

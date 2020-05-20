@@ -7,8 +7,7 @@ def dfs_euler(v: int, matrix: list, solution: list):
     neighbours = find_neighbours(v, matrix)
     for u in neighbours:
         if matrix[v][u] == 1:
-            matrix[v][u] = 0
-            matrix[u][v] = 0
+            matrix[v][u] = matrix[u][v] = 0
             matrix = dfs_euler(u, matrix, solution)
     solution.append(v)
     return matrix

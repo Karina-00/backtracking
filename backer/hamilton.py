@@ -1,6 +1,6 @@
 from click import style
 
-from .ggen import Generator
+from ggen import Generator
 
 
 def hamilton(graph):
