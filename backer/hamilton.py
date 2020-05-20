@@ -17,7 +17,6 @@ def cycle(graph, current, start, visited, path, counter):
     # print(style(f" → {current}", fg="blue"), end="")
     visited[current] = True
     counter += 1
-    # secho(f"visited: {visited}", fg="blue")
     for next in graph[current]:
         if next == start and counter == len(graph):
             return True

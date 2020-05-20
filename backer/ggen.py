@@ -91,12 +91,15 @@ class Generator:
             self.list[size - 1] = []
         used = _rich(self.list)
         poss = _min_rich(size, 1)
-        print(
-            f"used {used} edges of {poss} edges possible ({(used/poss) *10000 // 10 / 10}%)"
-        )
+        # print(
+        #     f"used {used} edges of {poss} edges possible ({(used/poss) *10000 // 10 / 10}%)"
+        # )
 
     def matrix(self):
         pass
+
+    def lista(self):
+        return lista
 
     def print_list(self):
         for i in range(self.size):

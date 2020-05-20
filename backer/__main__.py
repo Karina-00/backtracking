@@ -4,7 +4,7 @@ from copy import deepcopy
 from tabulate import tabulate
 from click import style
 
-# from .ggen import Generator
+from .ggen import Generator
 from .euler import euler
 from .hamilton import hamilton
 
@@ -90,7 +90,14 @@ def main(argv):
                 continue
 
             hamiltonian = False if density == 3 else True
-            matrix = Generator(_gen_size, density, hamiltonian).matrix
+            density = {
+                1: 0.30,
+                2: 0.70,
+                3: 0.50,
+            }[density]
+            graph = Generator(_gen_size, density, hamiltonian)
+            matrix = graph.matrix()
+            lista = graph.lista()
 
         elif x == 2:
             matrix = read_graph()
