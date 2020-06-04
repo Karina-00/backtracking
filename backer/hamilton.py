@@ -1,6 +1,6 @@
 from click import style
 
-from ggen import Generator
+from .ggen import Generator
 
 
 def hamilton(graph):
@@ -19,11 +19,13 @@ def cycle(graph, current, start, visited, path, counter):
     counter += 1
     for next in graph[current]:
         if next == start and counter == len(graph):
+            path.append(current)
             return True
         if not visited[next]:
             if cycle(graph, next, start, visited, path, counter):
                 path.append(current)
-                print(path[::-1])
+                # if len(path) == len(graph):
+                print(" → ".join(str(p) for p in path[::-1]))
                 return True
     visited[current] = False
     counter -= 1

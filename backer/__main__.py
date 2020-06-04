@@ -102,6 +102,7 @@ def main(argv):
 
         elif x == 2:
             matrix = read_graph()
+            lista = lista_nastepnikow(deepcopy(matrix))
         else:
             print(style("[!] Nalezy podac liczbe z zakresu 0..2", fg='red'))
             continue
@@ -123,7 +124,7 @@ def main(argv):
                 break
             elif n == 1:
                 print(style("\nCykl Hamiltona", fg='blue'))
-                print(hamilton(deepcopy(matrix)))
+                hamilton(lista)
             elif n == 2:
                 print(style("\nCykl Eulera", fg='blue'))
                 print(euler(deepcopy(matrix)))
